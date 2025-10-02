@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Our Secret</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #4a2c2a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      background: rgba(255,255,255,0.5);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 0 25px rgba(255, 192, 203, 0.8);
+      animation: fadeIn 2s ease;
+    }
+    h1 {
+      margin-bottom: 25px;
+      color: #b03060;
+    }
+    button {
+      margin: 10px;
+      padding: 12px 25px;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+      background: #ff7eb3;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      transform: scale(1.1);
+      background: #ff4d88;
+    }
+    .error {
+      margin-top: 15px;
+      color: #ff4d4d;
+      font-weight: bold;
+      display: none;
+      animation: shake 0.5s;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      font-size: 20px;
+      color: #ff4d6d;
+      animation: floatUp 3s linear forwards;
+      opacity: 0.8;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" data-aos="zoom-in">
+    <h1>When did we meet first time?</h1>
+    <button onclick="checkAnswer('12 May')">12th May</button>
+    <button onclick="checkAnswer('22 February')">22 February</button>
+    <button onclick="checkAnswer('31 October')">31 October</button>
+    <div class="error" id="errorMsg">Oops 💔 Wrong answer</div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    const funnyMessages = [
+      "😂 Wrong! Were you even there that day?",
+      "😜 Nope! Try again, detective!",
+      "🙈 Oops, that's not the date!",
+      "💔 Wrong password... do you really love me? 😆",
+      "🤣 Haha, nooo! Guess again.",
+      "😏 Wrong! You need to remember properly."
+    ];
+
+    function checkAnswer(answer) {
+      const errorMsg = document.getElementById("errorMsg");
+      if (answer === "22 February") {
+        triggerMagic();
+        setTimeout(() => {
+          window.location.href = "second.html"; 
+        }, 2500);
+      } else {
+        const randomMsg = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+        errorMsg.innerHTML = randomMsg;
+        errorMsg.style.display = "block";
+        errorMsg.style.animation = "shake 0.5s";
+        setTimeout(() => errorMsg.style.animation = "", 500);
+      }
+    }
+
+    function triggerMagic() {
+      for (let i = 0; i < 20; i++) {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = (2 + Math.random() * 2) + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+      }
+    }
+  </script>
+</body>
+</html>
